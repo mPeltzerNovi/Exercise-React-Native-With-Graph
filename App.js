@@ -1,18 +1,35 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import Todo from "./Todo";
 
-export default class FixedDimensionsBasics extends Component {
-  render() {
+const App = () => {
     return (
         <SafeAreaView>
-          <View style={{width: 50, height: 50, backgroundColor: 'powderblue'}} />
-          <View style={{width: 100, height: 100, backgroundColor: 'skyblue'}} />
-          <View style={{width: 150, height: 150, backgroundColor: 'steelblue'}} />
+          <View >
+            <Text style={styles.titleText} >
+                Let's build a React Native App with graphs etc </Text>
+          </View>
+          <Todo />
+          <Todo />
+          <Todo />
+
         </SafeAreaView>
-    )
-  }
+    );
 }
+
+const styles = StyleSheet.create({
+  titleText: {
+    //backgroundColor: 'red',
+    fontSize: 30,
+    fontWeight: "bold",
+  },
+  red: {
+    color: 'red',
+  },
+});
+
+export default App;
 
 /*
 export default function App() {
