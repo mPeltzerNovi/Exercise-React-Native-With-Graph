@@ -1,25 +1,47 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import React, { Component, useState } from 'react';
+import { StyleSheet, Text, View, SafeAreaView, TextInput, Button } from 'react-native';
 import Todo from "./Todo";
 
+
 const App = () => {
+    const [input, setInput] = useState('');
+    const [todos, setTodos] = useState([]);
+
+    const addTodo = () => {
+      setTodos([input, ...todos]); //Add to what ever de previous inputs were.
+      setInput('');
+    }
+
     return (
         <SafeAreaView>
           <View >
             <Text style={styles.titleText} >
                 Let's build a React Native App with graphs etc </Text>
           </View>
-          <Todo />
-          <Todo />
-          <Todo />
+            {todos.map(todo => (
+                <Todo title={todo}/>
+            ))}
+
+          <TextInput
+            style={styles.todoInput}
+            value={input}
+            onChangeText={text => setInput(text)}
+          />
+          <Button onPress={addTodo} title='Add TODO'/>
 
         </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
-  titleText: {
+    todoInput: {
+      margin: 20,
+      height: 40,
+      borderColor: 'red',
+      borderWidth: 1
+    },
+    titleText: {
     //backgroundColor: 'red',
     fontSize: 30,
     fontWeight: "bold",

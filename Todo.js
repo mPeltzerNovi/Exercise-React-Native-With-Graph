@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View } from "react-native"; //Hier zat de fout. Ik had "react-native-web" geimporteerd
 
-const Todo = () => {
+const Todo = ({ title }) => {
     return (
         <View>
-            <Text>I am a Todo</Text>
+            <Text>☑ {title}</Text>
         </View>
     )
 }
