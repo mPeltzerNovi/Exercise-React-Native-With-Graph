@@ -1,8 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component, useState } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, TextInput, Button } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, TextInput, Button, ScrollView } from 'react-native';
 import Todo from "./Todo";
-//Key toevoegen!! met een package die heet: uuidv4 -->Verder op studeren ook film op ong: 1:56:00. ->Hier package toevoegen
+//Let erop dat je bij auto import niet steeds op die "react-native-web" uitkomt. Het moet uit de gewone "react-native"
+
+
+//Key toevoegen!! met een package die heet: uuidv4 -->Verder op studeren ook film op ong: 1:56:00.
 
 
 const App = () => {
@@ -20,10 +23,11 @@ const App = () => {
             <Text style={styles.titleText} >
                 Let's build a React Native App with graphs etc </Text>
           </View>
-            {todos.map(todo => (
-                <Todo key={} title={todo}/> //hier komt de key ingevoegd!!!
-            ))}
-
+          <ScrollView>
+              {todos.map(todo => (
+                  <Todo title={todo}/> //hier moet je normalitair de key ingevoegd!!!
+              ))}
+          </ScrollView>
           <TextInput
             style={styles.todoInput}
             value={input}
