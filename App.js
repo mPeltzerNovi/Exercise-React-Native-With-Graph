@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { Component, useState } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, TextInput, Button } from 'react-native';
 import Todo from "./Todo";
+//Key toevoegen!! met een package die heet: uuidv4 -->Verder op studeren ook film op ong: 1:56:00
 
 
 const App = () => {
@@ -20,7 +21,7 @@ const App = () => {
                 Let's build a React Native App with graphs etc </Text>
           </View>
             {todos.map(todo => (
-                <Todo title={todo}/>
+                <Todo key={} title={todo}/>
             ))}
 
           <TextInput
