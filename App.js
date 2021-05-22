@@ -16,12 +16,19 @@ const App = () => {
     const [description, setDescription] = useState('');
     const [amount, setAmount] = useState('');
     const [total, setTotal] = useState(0);
+    const [labels, setLabels] = useState([]);
+    const [dataPoints, setDataPoints] = useState([]);
     const [gigs, setGigs] = useState([  //Gig would have a description and amount
         {
           description: 'Freelance job with Jamila',
-          amount: 499.99
-        }
+          amount: 499.99,
+          date: new Date()
+            //this is the first hardcoded start
+        },
+
     ]);
+
+
 
     //Whenever the gigs change recalculate the total. Reduce gebruiken
     useEffect(() => {
@@ -32,26 +39,14 @@ const App = () => {
     const addGig = () => {
         setGigs([...gigs, {
             description: description,
-            amount: amount
+            amount: amount,
+            timestamp: new Date()
         }]);
         //After you submit the gig; reset to zero and set amount to zero:
         setDescription('');
         setAmount('');
 
     }
-
-    const data = {
-        labels: ["January", "February", "March", "April", "May", "June"],
-        datasets: [
-            {
-                data: [20, 45, 28, 80, 99, 43]
-            }
-        ]
-    };
-
-
-
-
 
 
     return (
@@ -65,7 +60,7 @@ const App = () => {
                 <Text>Bezier Line Chart</Text>
                 <LineChart
                     data={{
-                        labels: ["January", "February", "March", "April", "May", "June"],
+                        labels: ["Mon", "Tue", "Wen", "Thu", "Fri"],
                         datasets: [
                             {
                                 data: [
@@ -73,8 +68,9 @@ const App = () => {
                                     Math.random() * 100,
                                     Math.random() * 100,
                                     Math.random() * 100,
-                                    Math.random() * 100,
-                                    Math.random() * 100
+
+
+
                                 ]
                             }
                         ]
@@ -82,13 +78,13 @@ const App = () => {
                     width={Dimensions.get("window").width} // from react-native
                     height={220}
                     yAxisLabel="$"
-                    yAxisSuffix="k"
+                    //yAxisSuffix="k"
                     yAxisInterval={1} // optional, defaults to 1
                     chartConfig={{
                         backgroundColor: "#e26a00",
-                        backgroundGradientFrom: "#fb8c00",
-                        backgroundGradientTo: "#ffa726",
-                        decimalPlaces: 2, // optional, defaults to 2dp
+                        backgroundGradientFrom: "green",
+                        backgroundGradientTo: "green",
+                        decimalPlaces: 1, // optional, defaults to 2dp
                         color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
                         labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
                         style: {
