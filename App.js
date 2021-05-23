@@ -90,15 +90,10 @@ const App = () => {
                 <Text>Bezier Line Chart</Text>
                 <LineChart
                     data={{
-                        labels: ["Mon", "Tue", "Wen", "Thu", "Fri"],
+                        labels: getDates(),
                         datasets: [
                             {
-                                data: [
-                                    Math.random() * 100,
-                                    Math.random() * 100,
-                                    Math.random() * 100,
-                                    Math.random() * 100,
-                                ]
+                                data: getAmounts()
                             }
                         ]
                     }}
