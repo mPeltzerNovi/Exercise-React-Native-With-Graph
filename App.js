@@ -3,6 +3,7 @@ import React, { Component, useState, useEffect } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, TextInput, Button, ScrollView, Dimensions } from 'react-native';
 import Todo from "./Todo";
 import { BarChart, LineChart } from "react-native-chart-kit";
+import moment from 'moment';
 
 
 
@@ -11,13 +12,20 @@ import { BarChart, LineChart } from "react-native-chart-kit";
 
 //Key toevoegen!! met een package die heet: uuidv4 -->Verder op studeren ook film op ong: 1:56:00.
 
+//dataset needs to be in a state (varable)
 
 const App = () => {
     const [description, setDescription] = useState('');
     const [amount, setAmount] = useState('');
     const [total, setTotal] = useState(0);
-    const [labels, setLabels] = useState([]);
-    const [dataPoints, setDataPoints] = useState([]);
+    const [data, setData] = useState([ //zo zet je dus meerdere dingen in een array!
+        {[moment()]: 2000},
+        {[moment().subtract(1, 'days')]: 2500},
+        {[moment().subtract(2, 'days')]: 3500},
+        {[moment().subtract(3, 'days')]: 4500},
+        {[moment().subtract(4, 'days')]: 5500},
+    ]) //bringing the data in a piece of state, dan kan je dat hardcoded Math.randon() weghalen.
+
     const [gigs, setGigs] = useState([  //Gig would have a description and amount
         {
           description: 'Freelance job with Jamila',
@@ -27,6 +35,21 @@ const App = () => {
         },
 
     ]);
+
+    //create two helper functions
+    /*const getDates = () => {
+        const dates = data.map(pair => Object.keys(pair)[0])
+        return dates;
+        // [ date1, date2, date3, date4, date5 ]
+        // ['10/27/2020'] -> '10/27/2020'
+    }*/
+    //Nu in 1 regel:
+    const getDates = () => data.map(pair => Object.keys(pair)[0]);
+
+    const getAmounts = () => data.map(pair => Object.values(pair)[0]);
+
+    console.log('DEBUG :', data)
+    console.log('The Amounts' , getAmounts());
 
 
 
@@ -57,6 +80,13 @@ const App = () => {
           </View>
           <View>
 
+              {/* -->Array with datapoints maken
+                [
+                    {Date, 2000 },
+                    {Date2, 3500 }
+                ]
+              */}
+
                 <Text>Bezier Line Chart</Text>
                 <LineChart
                     data={{
@@ -68,9 +98,6 @@ const App = () => {
                                     Math.random() * 100,
                                     Math.random() * 100,
                                     Math.random() * 100,
-
-
-
                                 ]
                             }
                         ]
@@ -84,7 +111,7 @@ const App = () => {
                         backgroundColor: "#e26a00",
                         backgroundGradientFrom: "green",
                         backgroundGradientTo: "green",
-                        decimalPlaces: 1, // optional, defaults to 2dp
+                        decimalPlaces: null, // optional, defaults to 2dp
                         color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
                         labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
                         style: {
