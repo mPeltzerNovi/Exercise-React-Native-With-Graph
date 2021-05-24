@@ -19,12 +19,35 @@ const App = () => {
     const [amount, setAmount] = useState('');
     const [total, setTotal] = useState(0);
     const [data, setData] = useState([ //zo zet je dus meerdere dingen in een array!
-        {[moment()]: 2000},
-        {[moment().subtract(1, 'days')]: 2500},
-        {[moment().subtract(2, 'days')]: 3500},
-        {[moment().subtract(3, 'days')]: 4500},
-        {[moment().subtract(4, 'days')]: 5500},
+        //Dat format('LL') komt uit de doc's zo op termijn ook aan het programmeren zijn.
+        //stackoverflow
+        { date: moment().format('LL'), amount: 2000},
+        { date: moment().subtract(1, 'days').format('LL'), amount: 2500},
+        { date: moment().subtract(1, 'days').format('LL'), amount: 3500},
+        { date: moment().subtract(1, 'days').format('LL'), amount: 4500},
+        { date: moment().subtract(2, 'days').format('LL'), amount: 5500},
+        { date: moment().subtract(2, 'days').format('LL'), amount: 5500},
     ]) //bringing the data in a piece of state, dan kan je dat hardcoded Math.randon() weghalen.
+
+    /**
+     * [
+     * { [moment()]: 2000 },
+     * { [moment().subtract(1, 'days')]: 9500 },
+     * { [moment().subtract(2, 'days')]: 11000 },
+     *
+     * ]
+     */
+
+
+    //vb stack overflow heel lastig.
+    const groupBy = (array, key) =>
+        array.reduce((rv, x) => {
+            (rv[x[key]] = rv[x[key]] || []).push(x);
+            return rv;
+        }, {});
+
+    // console.log(groupBy(['one', 'two', 'three'], 'length'));
+    // =>{3: ["one", "two"], 5: ["three"]}
 
     const [gigs, setGigs] = useState([  //Gig would have a description and amount
         {
@@ -44,12 +67,25 @@ const App = () => {
         // ['10/27/2020'] -> '10/27/2020'
     }*/
     //Nu in 1 regel:
-    const getDates = () => data.map(pair => Object.keys(pair)[0]);
+    const getDates = () => data.map(pair => pair.date);
+    const getAmounts = () => data.map(pair => pair.amount);
+    const transformData = (groupedData) => {
+        const transformedArray = [];
 
-    const getAmounts = () => data.map(pair => Object.values(pair)[0]);
+        Object.entries(groupedData).forEach(entry => {
+            const total = entry[1].reduce((total, pair) => total + pair.amount, 0)
+            transformedArray.push({ date: entry[0], amount: total })
+        })
+
+        return transformedArray;
+    }
+
 
     console.log('DEBUG :', data)
+    console.log('The Dates', getDates())
     console.log('The Amounts' , getAmounts());
+    console.log('The GROUPED values are', Object.entries(groupBy(data, 'date'))) //zo is hij idd zoals bij hen
+    console.log('The Total grouped value ', transformData(groupBy(data, 'date')))
 
 
 
