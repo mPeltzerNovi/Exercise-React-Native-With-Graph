@@ -24,10 +24,22 @@ const App = () => {
         { date: moment().format('LL'), amount: 2000},
         { date: moment().subtract(1, 'days').format('LL'), amount: 2500},
         { date: moment().subtract(1, 'days').format('LL'), amount: 3500},
-        { date: moment().subtract(1, 'days').format('LL'), amount: 4500},
+        { date: moment().subtract(1, 'days').format('LL'), amount: 3500},
+        { date: moment().subtract(1, 'days').format('LL'), amount: 3500},
+        { date: moment().subtract(7, 'days').format('LL'), amount: 3500},
+        { date: moment().subtract(6, 'days').format('LL'), amount: 3500},
+        { date: moment().subtract(5, 'days').format('LL'), amount: 3500},
+        { date: moment().subtract(4, 'days').format('LL'), amount: 3500},
+        { date: moment().subtract(3, 'days').format('LL'), amount: 4500},
         { date: moment().subtract(2, 'days').format('LL'), amount: 5500},
         { date: moment().subtract(2, 'days').format('LL'), amount: 5500},
     ]) //bringing the data in a piece of state, dan kan je dat hardcoded Math.randon() weghalen.
+    //infinite loop voorkomen:
+    const [transformedData, setTransformedData] = useState([]);
+
+    useEffect(() => {
+        setTransformedData(transformData(groupBy(data, 'date')));
+    }, [data])
 
     /**
      * [
@@ -67,8 +79,8 @@ const App = () => {
         // ['10/27/2020'] -> '10/27/2020'
     }*/
     //Nu in 1 regel:
-    const getDates = () => data.map(pair => pair.date);
-    const getAmounts = () => data.map(pair => pair.amount);
+    const getDates = () => transformedData.map(pair => pair.date);
+    const getAmounts = () => transformedData.map(pair => pair.amount);
     const transformData = (groupedData) => {
         const transformedArray = [];
 
