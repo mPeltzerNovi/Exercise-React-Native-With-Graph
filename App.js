@@ -86,10 +86,13 @@ const App = () => {
 
         Object.entries(groupedData).forEach(entry => {
             const total = entry[1].reduce((total, pair) => total + pair.amount, 0)
-            transformedArray.push({ date: entry[0], amount: total })
+            transformedArray.push({ date: moment(entry[0]).format('MM/DD'), amount: total })
         })
 
-        return transformedArray;
+        //Sorting-->Deze code heel lastig nog voor beginners; dit is een goede oefening probleemoplossing leren
+        const sortedArray = transformedArray.sort((a, b) => moment(a['date']).diff(moment(b['date'])))
+
+        return sortedArray;
     }
 
 
@@ -111,8 +114,16 @@ const App = () => {
         setGigs([...gigs, {
             description: description,
             amount: amount,
-            timestamp: new Date()
+
         }]);
+
+        setData([
+            ...data, //(whatever the data currently is) +
+            {
+                date: moment().format('LL'),
+                amount: Number(amount)
+            }
+        ]);
         //After you submit the gig; reset to zero and set amount to zero:
         setDescription('');
         setAmount('');
@@ -193,7 +204,7 @@ const App = () => {
             {gigs.map(gig => (
                 <View>
                     <Text>{gig.description}</Text>
-                    <Text>{gig.amount}</Text>
+                    <Text>${gig.amount}</Text>
                 </View>
             ))}
 
