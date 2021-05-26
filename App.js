@@ -5,7 +5,10 @@ import Todo from "./Todo";
 import { BarChart, LineChart } from "react-native-chart-kit";
 import moment from 'moment';
 
-
+//-->HEt is nu een werkende React Native app
+//Deel 3 moet nog:
+//-->De sorting moet nog geficked worden!!!
+//-->Authentication met FireBase moet er nog bij
 
 //Let erop dat je bij auto import niet steeds op die "react-native-web" uitkomt. Het moet uit de gewone "react-native"
 
